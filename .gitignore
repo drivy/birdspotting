@@ -14,3 +14,4 @@
 *.swo
 
 .ruby-gemset
+.DS_Store
