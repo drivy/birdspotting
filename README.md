@@ -1,9 +1,7 @@
 
 # Birdspotting
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/birdspotting`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Some add-ons on `ActiveRecord::Migration` to make migration safer in the context of zero downtime deployment.
 
 ## Installation
 
@@ -23,7 +21,105 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Configuration
+
+You can configure the gem (for instance by creating a `config/initializers/birdspotting.rb`) with the following options (here with the default values):
+
+```ruby
+Birdspotting.configure do |config|
+    config.start_check_at            = nil
+    config.check_bypass_env_var      = "BYPASS_SCHEMA_STATEMENTS_CHECK"
+
+    config.add_column_position_check = true
+
+    config.encoding_check            = true
+    config.encoding_check_message    = "\n/!\\ You are dealing with a %<type>s field" \
+    "(%<column_name>s): did you think about emojis and used the appropriate encoding? /!\\ \n\n"
+
+    config.rename_column_check       = true
+    config.rename_column_message     = "Don't use rename_column! https://stackoverflow.com/a/18542147"
+
+    config.remove_column_check        = true
+end
+```
+
+#### Common configuration
+
+`start_check_at` allows to start the checks after some migration version only. Set it to a migration 
+timestamp like 20151209000000 for instance. When nil, all migrations will be checked.
+
+`check_bypass_env_var` specify the ENV var allowing to bypass the checks.
+
+### add_column request position
+
+We like to keep or columns organised for the case where we don't use the ORM but some other client.
+
+This will raise a `Birdspotting::ColumnPositionMissingError` error if neither `:first` or `:after`
+is in the add_columns option.
+
+You can skip this validation by setting `add_column_position_check` to `false`. 
+
+### add_column encoding warning
+
+This will add a warning when adding a string (or text) column to warn us to think about encoding 
+issues. Like do we want to support emojis, or unusual characters?
+
+You can skip this validation by setting `encoding_check` to `false`. 
+You can customise the warning message by using the `encoding_check_message` setting.
+
+### rename_column
+
+By default, we don't want to use the rename column possibility as it will break any live application.
+And we want to be able to release and run migration without downtime.
+Though when a rename_column is used, it will raise a `Birdspotting::RenameColumnForbiddenError`.
+
+You can skip this validation by setting `rename_column_check` to `false`. 
+You can customise the warning message by using the `rename_column_message` setting.
+
+### remove_column
+
+By default, we don't want to be able to remove a columns which is still in use by a the application.
+
+Thus we check if the column is still present in the columns list.
+
+- If we are not able to find the model, we issue a `Birdspotting::ModelNotFoundError`.
+- If the column is still present in the model, we issue a `Birdspotting::RemoveColumnForbiddenError`.
+
+We advise to set the column in the `ignored_columns` of the model.
+
+You can skip this validation by setting `remove_column_check` to `false`. 
+
+### reorder columns [mySql only]
+
+As said above, we like to keep or columns organised for the case where 
+we don't use the ORM but some other client.
+
+This helper allow to reorder all the columns of a table.
+
+Usage:
+
+````ruby
+class ReorderPostsColumns < ActiveRecord::Migration[5.2]
+  include Birdspotting::ReorderColumns
+
+  def change
+    reorder_columns_for :posts, %i{
+      id
+      author
+      body
+      subject
+      posted_at
+      created_at
+      updated_at
+    }
+  end
+end
+````
+
+**CAVEAT:**
+
+* All columns must be passed in parameters (or it will raise a `Birdspotting::MismatchedColumnsError`).
+* For now, it only works on mysql (or it will raise a `Birdspotting::UnsupportedAdapterError`).
 
 ## Development
 
@@ -33,7 +129,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/birdspotting. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/drivy/birdspotting. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -41,4 +137,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Birdspotting project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/birdspotting/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Birdspotting project’s codebases and issue trackers is expected to follow the [code of conduct](https://github.com/drivy/birdspotting/blob/master/CODE_OF_CONDUCT.md).
