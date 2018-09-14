@@ -24,14 +24,14 @@ RSpec.describe Birdspotting::SchemaStatements do
 
     context "with after or first option set" do
       it "adds the column" do
-        expect_any_instance_of(ActiveRecord::Migration).to receive(:say_with_time)
+        expect(instance).to receive(:say_with_time)
         expect { add_column }.not_to raise_exception
       end
     end
 
     context "for a string/text type column" do
       it "give us a warning message" do
-        expect_any_instance_of(ActiveRecord::Migration).to receive(:say_with_time)
+        expect(instance).to receive(:say_with_time)
         expect(STDERR).to receive(:puts).with(/You are dealing with a string/m)
         add_column
       end
@@ -51,7 +51,7 @@ RSpec.describe Birdspotting::SchemaStatements do
       let(:options) { { bypass_schema_statements_check: true } }
 
       it "removes the column" do
-        expect_any_instance_of(ActiveRecord::Migration).to receive(:say_with_time)
+        expect(instance).to receive(:say_with_time)
         expect { rename_column }.not_to raise_exception
       end
     end
@@ -90,7 +90,7 @@ RSpec.describe Birdspotting::SchemaStatements do
           let(:columns) { [] }
 
           it "removes the column" do
-            expect_any_instance_of(ActiveRecord::Migration).to receive(:say_with_time)
+            expect(instance).to receive(:say_with_time)
             expect { remove_column }.not_to raise_exception
           end
         end
@@ -100,7 +100,7 @@ RSpec.describe Birdspotting::SchemaStatements do
         let(:options) { { bypass_schema_statements_check: true } }
 
         it "removes the column" do
-          expect_any_instance_of(ActiveRecord::Migration).to receive(:say_with_time)
+          expect(instance).to receive(:say_with_time)
           expect { remove_column }.not_to raise_exception
         end
       end
