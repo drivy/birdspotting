@@ -40,6 +40,9 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    guard-rubocop (1.3.0)
+      guard (~> 2.0)
+      rubocop (~> 0.20)
     i18n (1.1.0)
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.1)
@@ -113,6 +116,7 @@ DEPENDENCIES
   birdspotting!
   bundler (~> 1.16)
   guard-rspec
+  guard-rubocop
   rake (~> 10.0)
   rspec (~> 3.0)
   rspec_junit_formatter
