@@ -89,8 +89,8 @@ module Birdspotting::SchemaStatements
 
   def checkable_version?
     version &&
-      Birdspotting.configuration.start_check_at &&
-      version <= Birdspotting.configuration.start_check_at
+      Birdspotting.configuration.start_check_at_version &&
+      version <= Birdspotting.configuration.start_check_at_version
   end
 
 end

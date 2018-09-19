@@ -1,5 +1,5 @@
 class Birdspotting::Configuration
-  attr_accessor :start_check_at,
+  attr_accessor :start_check_at_version,
                 :check_bypass_env_var,
                 :add_column_position_check,
                 :encoding_check,
@@ -10,7 +10,7 @@ class Birdspotting::Configuration
 
   def self.default
     new.tap do |config|
-      config.start_check_at = nil
+      config.start_check_at_version = nil
       config.check_bypass_env_var = "BYPASS_SCHEMA_STATEMENTS_CHECK"
       config.add_column_position_check = true
       config.encoding_check = true

@@ -31,7 +31,7 @@ You can configure the gem (for instance by creating a `config/initializers/birds
 
 ```ruby
 Birdspotting.configure do |config|
-    config.start_check_at            = nil
+    config.start_check_at_version    = nil
     config.check_bypass_env_var      = "BYPASS_SCHEMA_STATEMENTS_CHECK"
 
     config.add_column_position_check = true
@@ -49,7 +49,7 @@ end
 
 #### Common configuration
 
-`start_check_at` allows to start the checks after some migration version only. Set it to a migration 
+`start_check_at_version` allows to start the checks after some migration version only. Set it to a migration 
 timestamp like 20151209000000 for instance. When nil, all migrations will be checked.
 
 `check_bypass_env_var` specify the ENV var allowing to bypass the checks. Use it to bypass temporarily all the checks so you do it intentionally. You can set it to any value, it's just testing it's set.
