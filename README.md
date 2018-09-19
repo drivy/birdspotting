@@ -3,6 +3,10 @@
 
 Some add-ons on `ActiveRecord::Migration` to make migration safer in the context of zero downtime deployment.
 
+[![Gem Version](https://badge.fury.io/rb/checker_jobs.svg)](https://badge.fury.io/rb/checker_jobs)
+[![Maintainability](https://api.codeclimate.com/v1/badges/7972bd0e4dc65329f5c6/maintainability)](https://codeclimate.com/github/drivy/checker_jobs/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/7972bd0e4dc65329f5c6/test_coverage)](https://codeclimate.com/github/drivy/checker_jobs/test_coverage)
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -48,7 +52,13 @@ end
 `start_check_at` allows to start the checks after some migration version only. Set it to a migration 
 timestamp like 20151209000000 for instance. When nil, all migrations will be checked.
 
-`check_bypass_env_var` specify the ENV var allowing to bypass the checks.
+`check_bypass_env_var` specify the ENV var allowing to bypass the checks. Use it to bypass temporarily all the checks so you do it intentionally. You can set it to any value, it's just testing it's set.
+
+For instance if check_bypass_env_var is set to BYPASS_SCHEMA_STATEMENTS_CHECK (the default) you can do:
+
+```
+BYPASS_SCHEMA_STATEMENTS_CHECK=true rails db:migrate:up VERSION=20180806142044
+```
 
 ### add_column request position
 
@@ -74,7 +84,8 @@ And we want to be able to release and run migration without downtime.
 Though when a rename_column is used, it will raise a `Birdspotting::RenameColumnForbiddenError`.
 
 You can skip this validation by setting `rename_column_check` to `false`. 
-You can customise the warning message by using the `rename_column_message` setting.
+You can customise the warning message by using the `rename_column_message` setting. 
+You might like to customize the warning message to be a link to an internal set of instructions for the correct way to do this.
 
 ### remove_column
 
@@ -85,11 +96,11 @@ Thus we check if the column is still present in the columns list.
 - If we are not able to find the model, we issue a `Birdspotting::ModelNotFoundError`.
 - If the column is still present in the model, we issue a `Birdspotting::RemoveColumnForbiddenError`.
 
-We advise to set the column in the `ignored_columns` of the model.
+We advise to set the column in the `ignored_columns` of the model. (See [this blog article](https://blog.bigbinary.com/2016/05/24/rails-5-adds-active-record-ignored-columns.html))
 
 You can skip this validation by setting `remove_column_check` to `false`. 
 
-### reorder columns [mySql only]
+### reorder_columns [mySql only]
 
 As said above, we like to keep or columns organised for the case where 
 we don't use the ORM but some other client.
