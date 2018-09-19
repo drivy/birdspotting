@@ -3,9 +3,9 @@
 
 Some add-ons on `ActiveRecord::Migration` to make migration safer in the context of zero downtime deployment.
 
-[![Gem Version](https://badge.fury.io/rb/checker_jobs.svg)](https://badge.fury.io/rb/checker_jobs)
-[![Maintainability](https://api.codeclimate.com/v1/badges/7972bd0e4dc65329f5c6/maintainability)](https://codeclimate.com/github/drivy/checker_jobs/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/7972bd0e4dc65329f5c6/test_coverage)](https://codeclimate.com/github/drivy/checker_jobs/test_coverage)
+[![Gem Version](https://badge.fury.io/rb/birdspotting.svg)](https://badge.fury.io/rb/birdspotting)
+[![Maintainability](https://api.codeclimate.com/v1/badges/4a272a3f849869a200df/maintainability)](https://codeclimate.com/github/drivy/birdspotting/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/4a272a3f849869a200df/test_coverage)](https://codeclimate.com/github/drivy/birdspotting/test_coverage)
 
 ## Installation
 
