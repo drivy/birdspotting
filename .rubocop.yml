@@ -9,7 +9,7 @@ AllCops:
 # Opinionated cops
 #
 
-Layout/IndentHash:
+Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
 
 Metrics/AbcSize:

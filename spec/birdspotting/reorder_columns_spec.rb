@@ -22,7 +22,7 @@ RSpec.describe Birdspotting::ReorderColumns do
   let(:adapter) { "mysql2" }
   let(:show_create_table) do
     {
-      "posts" => <<~SQL
+      "posts" => <<~SQL,
         CREATE TABLE `posts` (\n  `id` bigint(20) NOT NULL AUTO_INCREMENT,\n  `author` int(11) DEFAULT NULL,\n  `body` text,\n  `subject` varchar(255) DEFAULT NULL,\n  `posted_at` datetime DEFAULT NULL,\n  `created_at` datetime NOT NULL,\n  `updated_at` datetime NOT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8
       SQL
     }

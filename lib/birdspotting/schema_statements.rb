@@ -42,9 +42,9 @@ module Birdspotting::SchemaStatements
     return unless Birdspotting.configuration.encoding_check?
     return unless %i[text string].include?(type)
 
-    STDERR.puts sprintf(
+    warn sprintf(
       Birdspotting.configuration.encoding_check_message,
-      type:        type,
+      type: type,
       column_name: column_name
     )
   end

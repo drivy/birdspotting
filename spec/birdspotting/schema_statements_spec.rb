@@ -32,7 +32,7 @@ RSpec.describe Birdspotting::SchemaStatements do
     context "for a string/text type column" do
       it "give us a warning message" do
         expect(instance).to receive(:say_with_time)
-        expect(STDERR).to receive(:puts).with(/You are dealing with a string/m)
+        expect(instance).to receive(:warn).with(/You are dealing with a string/m)
         add_column
       end
     end
