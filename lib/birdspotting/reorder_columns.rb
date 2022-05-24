@@ -35,7 +35,7 @@ module Birdspotting::ReorderColumns
                        .connection
                        .execute("SHOW CREATE TABLE `#{table_name}`")
                        .to_h[table_name.to_s]
-    column_definitions = table_definition.lines.map(&:strip).select { |l| l.starts_with?("`") }
+    column_definitions = table_definition.lines.map(&:strip).select { |l| l.start_with?("`") }
 
     Hash[column_definitions.map { |d| d.match(/`(.*)`\s*(.+?)(,|)\z/)[1, 2] }]
   end
