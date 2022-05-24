@@ -5,7 +5,15 @@ require "birdspotting/version"
 Gem::Specification.new do |spec|
   spec.name          = "birdspotting"
   spec.version       = Birdspotting::VERSION
-  spec.authors       = ["Drivy", "Howard Wilson", "David Bourguignon"]
+  spec.authors       = [
+    "Drivy",
+    "Howard Wilson",
+    "David Bourguignon",
+    "Alice Morin",
+    "Laurent Humez",
+    "Rémy Hannequin",
+    "Hugo Dornbierer",
+  ]
   spec.email         = ["oss@drivy.com"]
 
   spec.summary       = "Rails migration helpers."
