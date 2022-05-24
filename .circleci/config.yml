@@ -16,7 +16,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: circleci/ruby:2.6.5-stretch
+      - image: cimg/ruby:2.7.4
     steps:
       - checkout
       - *step_restore_vendor_cache
