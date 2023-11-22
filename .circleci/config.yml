@@ -16,7 +16,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: cimg/ruby:2.7.4
+      - image: cimg/ruby:3.0.6
     steps:
       - checkout
       - *step_restore_vendor_cache
