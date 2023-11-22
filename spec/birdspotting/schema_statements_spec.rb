@@ -10,7 +10,7 @@ RSpec.describe Birdspotting::SchemaStatements do
   let(:options) { {} }
 
   describe "#add_column" do
-    subject(:add_column) { instance.add_column(table_name, column_name, type, options) }
+    subject(:add_column) { instance.add_column(table_name, column_name, type, **options) }
 
     let(:options) { { after: :id } }
 
@@ -40,7 +40,7 @@ RSpec.describe Birdspotting::SchemaStatements do
 
   describe "#rename_column" do
     subject(:rename_column) do
-      instance.rename_column(table_name, column_name, "new_column_name", options)
+      instance.rename_column(table_name, column_name, "new_column_name", **options)
     end
 
     it "raises" do
@@ -58,7 +58,7 @@ RSpec.describe Birdspotting::SchemaStatements do
   end
 
   describe "#remove_column" do
-    subject(:remove_column) { instance.remove_column(table_name, column_name, type, options) }
+    subject(:remove_column) { instance.remove_column(table_name, column_name, type, **options) }
 
     context "with unknown model" do
       it "raises" do
