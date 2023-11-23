@@ -4,7 +4,7 @@ module Birdspotting::SchemaStatements
     add_column_position_check(options)
     encoding_check(column_name, type, options)
 
-    super
+    super(table_name, column_name, type, **options)
   end
 
   def rename_column(*args, **kwargs)
@@ -16,7 +16,7 @@ module Birdspotting::SchemaStatements
   def remove_column(table_name, column_name, type = nil, options = {})
     remove_column_check(column_name, table_name, options)
 
-    super(table_name, column_name, type, options)
+    super(table_name, column_name, type, **options)
   end
 
   private
