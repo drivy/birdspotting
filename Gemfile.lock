@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    birdspotting (0.1.6)
-      activerecord (>= 6.0, < 7.0)
+    birdspotting (0.1.7)
+      activerecord (>= 6.1, < 7.1)
 
 GEM
   remote: https://rubygems.org/
