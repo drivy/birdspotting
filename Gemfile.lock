@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    birdspotting (0.1.9)
+    birdspotting (0.1.10)
       activerecord (>= 7.2, < 8.1)
 
 GEM
