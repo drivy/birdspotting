@@ -37,5 +37,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rubocop-rspec"
   spec.add_development_dependency "simplecov"
 
-  spec.add_runtime_dependency "activerecord", ">= 7.2", "< 8.1"
+  spec.add_runtime_dependency "activerecord", ">= 7.2", "< 8.2"
 end
