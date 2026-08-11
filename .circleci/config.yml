@@ -21,7 +21,9 @@ jobs:
       - *step_restore_vendor_cache
       - run:
           name: Install Ruby dependencies
-          command: bundle install --path vendor/bundle --jobs=2
+          command: |
+            bundle config set path 'vendor/bundle'
+            bundle install --jobs=2
       - *step_save_vendor_cache
       - run:
           name: Run RSpec suite
